@@ -1,18 +1,16 @@
-// HabitManagementScreen.jsx
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import HabitList from '../component/HabitList';
 import AddHabitModal from '../component/AddHabitModal';
 
-const HabitManagementScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Habit Management</Text>
-      <HabitList />
-      <AddHabitModal />
-    </View>
-  );
-};
+const HabitManagementScreen = () => (
+  <View style={styles.container}>
+    <Text style={styles.title}>Habit Management</Text>
+    <Text style={styles.hint}>Tap the circle to mark a habit done for today.</Text>
+    <HabitList />
+    <AddHabitModal />
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -24,8 +22,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 4,
     textAlign: 'center',
+  },
+  hint: {
+    textAlign: 'center',
+    color: '#667085',
+    marginBottom: 12,
   },
 });
 

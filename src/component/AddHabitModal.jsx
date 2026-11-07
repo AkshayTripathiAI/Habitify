@@ -1,16 +1,15 @@
-// AddHabitModal.jsx
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { addHabit } from '../Redux/actions/habitActions';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { addHabit } from '../Redux/habitsSlice';
 
-const AddHabitModal = ({ dispatch }) => {
+const AddHabitModal = () => {
+  const dispatch = useDispatch();
   const [habitName, setHabitName] = useState('');
 
   const handleAddHabit = () => {
     if (habitName.trim() !== '') {
-      const habit = { id: Math.random(), name: habitName };
-      dispatch(addHabit(habit));
+      dispatch(addHabit(habitName));
       setHabitName('');
     }
   };
@@ -21,92 +20,29 @@ const AddHabitModal = ({ dispatch }) => {
         style={styles.input}
         value={habitName}
         onChangeText={setHabitName}
+        onSubmitEditing={handleAddHabit}
         placeholder="Enter new habit"
+        returnKeyType="done"
+        accessibilityLabel="New habit name"
       />
-      <Button title="Add Habit" onPress={handleAddHabit} />
+      <Button title="Add Habit" onPress={handleAddHabit} disabled={!habitName.trim()} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     marginBottom: 20,
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#98a2b3',
     borderWidth: 1,
+    borderRadius: 6,
     marginBottom: 10,
     paddingHorizontal: 10,
   },
 });
 
-export default connect()(AddHabitModal);
-
-
-
-// import React, { useState } from 'react';
-// import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
-
-// const AddHabitModal = ({ onAddHabit }) => {
-//   const [habitName, setHabitName] = useState('');
-
-//   const handleAddHabit = () => {
-//     // Validate the habit name
-//     if (!habitName.trim()) {
-//       alert('Please enter a habit name');
-//       return;
-//     }
-
-//     // Call the onAddHabit callback with the new habit name
-//     onAddHabit(habitName);
-
-//     // Reset the habit name input field
-//     setHabitName('');
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Add Habit</Text>
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Enter habit name"
-//         value={habitName}
-//         onChangeText={setHabitName}
-//       />
-//       <Button title="Add Habit" onPress={handleAddHabit} />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: '#fff',
-//     padding: 20,
-//     marginVertical: 8,
-//     marginHorizontal: 16,
-//     borderRadius: 10,
-//     shadowColor: '#000',
-//     shadowOffset: {
-//       width: 0,
-//       height: 2,
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 3.84,
-//     elevation: 5,
-//   },
-//   title: {
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//     marginBottom: 10,
-//   },
-//   input: {
-//     height: 40,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     marginBottom: 10,
-//     paddingHorizontal: 10,
-//   },
-// });
-
-// export default AddHabitModal;
+export default AddHabitModal;
